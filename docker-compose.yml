@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/php/Dockerfile
+      dockerfile: ./.docker/php/Dockerfile
     image: hakase-labs/laravel
     container_name: app
     restart: unless-stopped
@@ -27,8 +27,8 @@ services:
       - "4466:443"
     volumes:
       - ./:/var/www/html
-      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
-      - ./docker/nginx/ssl/:/etc/nginx/ssl/
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./.docker/nginx/ssl/:/etc/nginx/ssl/
     networks:
       - mynet
 
@@ -38,14 +38,15 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "${DB_PORT}:3306"
+      - "${DB_HOST_PORT}:${DB_PORT}"
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./docker/mysql/dbdata:/var/lib/mysql/
+      - ./.docker/mysql/dbdata:/var/lib/mysql/
+      - ./.docker/mysql/dump:/docker-entrypoint-initdb.d
     networks:
       - mynet
 
