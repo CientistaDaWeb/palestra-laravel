@@ -35,8 +35,8 @@ Route::get(
 );
 
 Route::get(
-    '/bling',
+    '/ping',
     function () {
-        echo '<h1>blong</h1>';
+        echo '<h1>Pong</h1>';
     }
 );

@@ -4,7 +4,6 @@ services:
     build:
       context: .
       dockerfile: ./.docker/php/Dockerfile
-    image: hakase-labs/laravel
     container_name: app
     restart: unless-stopped
     tty: true
@@ -12,8 +11,11 @@ services:
       SERVICE_NAME: app
       SERVICE_TAGS: dev
     working_dir: /var/www/html
+    command: /entrypoint.sh
     volumes:
       - ./:/var/www/html
+      - ./.docker/supervisor/supervisord.conf:/etc/supervisord.conf
+      - ./.docker/php/entrypoint.sh:/entrypoint.sh
     networks:
       - mynet
 

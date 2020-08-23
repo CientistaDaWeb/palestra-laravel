@@ -1,0 +1,8 @@
+//Index
+GET https://localhost:4466/products
+Content-Type: application/json
+
+###
+// Store
+POST https://localhost:4466/products
+Content-Type: application/json
