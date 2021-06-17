@@ -17,7 +17,7 @@ services:
       - ./.docker/supervisor/supervisord.conf:/etc/supervisord.conf
       - ./.docker/php/entrypoint.sh:/entrypoint.sh
     networks:
-      - mynet
+      - laravel
 
   nginx:
     image: nginx:alpine
@@ -32,7 +32,7 @@ services:
       - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
       - ./.docker/nginx/ssl/:/etc/nginx/ssl/
     networks:
-      - mynet
+      - laravel
 
   db:
     image: mysql:5.7
@@ -50,10 +50,10 @@ services:
       - ./.docker/mysql/dbdata:/var/lib/mysql/
       - ./.docker/mysql/dump:/docker-entrypoint-initdb.d
     networks:
-      - mynet
+      - laravel
 
 networks:
-  mynet:
+  laravel:
     driver: bridge
 volumes:
   mysqldata:
